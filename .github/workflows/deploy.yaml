@@ -15,4 +15,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run script to release based on tags
-        run: echo "Someone just merged a PR"
+        run: echo "Someone just merged PR# $GITHUB_REF"
