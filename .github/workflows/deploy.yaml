@@ -3,14 +3,18 @@ on:
   pull_request:
     types: [closed]
 jobs:
-  build:
-    name: Fire on PR merged
-    if: ${{ github.event.pull_request.merged }}
+  merge_job:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Run script to release based on tags
-        run: echo "Someone just merged PR# $GITHUB_REF"
+    - run: |
+        echo PR #${{ github.event.number }} has been merged
+
+  close_job:
+    # this job will only run if the PR has been closed without being merged
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo PR #${{ github.event.number }} has been closed without being merged
