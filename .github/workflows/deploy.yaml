@@ -10,4 +10,5 @@ jobs:
     steps:
     - run: |
         echo "PR #${{ github.event.number }} has been merged"
+        gh auth login
         gh pr view ${{ github.event.number }}
