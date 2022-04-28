@@ -1,0 +1,18 @@
+name: Fire on PR merged
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+jobs:
+  build:
+    name: Fire on PR merged
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Run script to release based on tags
+        run: echo "Someone just merged a PR"
